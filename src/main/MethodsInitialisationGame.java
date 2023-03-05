@@ -2,7 +2,7 @@ package main;
 
 import java.util.Scanner;
 
-public class MethodsInitialisationGame extends Reigns{
+public class MethodsInitialisationGame{
 
 
     /**

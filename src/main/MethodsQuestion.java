@@ -3,7 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MethodsQuestion extends Reigns{
+public class MethodsQuestion{
     /**
      * la banque de questions
      */

@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 public class MethodsJauge extends Personnage{
 
     /**
@@ -9,6 +11,10 @@ public class MethodsJauge extends Personnage{
      * @param nom   Le nom du personnage
      * @param genre Le genre du personnage
      */
+
+
+
+
     public MethodsJauge(String nom, Genre genre) {
         super(nom, genre);
     }
@@ -42,10 +48,9 @@ public class MethodsJauge extends Personnage{
      * Affiche les jauges de Clergé, Peuple, Armée et Finances du personnage.
      */
     public static void AfficheJauges() {
-        MethodsJauge.afficheJauge(jaugeClerge);
-        MethodsJauge.afficheJauge(jaugePeuple);
-        MethodsJauge.afficheJauge(jaugeArmee);
-        MethodsJauge.afficheJauge(jaugeFinance);
+        for (Jauge Element:ListeJauge) {
+            MethodsJauge.afficheJauge(Element);
+        }
         System.out.println();
     }
 
@@ -57,20 +62,11 @@ public class MethodsJauge extends Personnage{
      * @return true si le jeu est fini, false sinon
      */
     public static boolean finDuJeu(){
-        if(Personnage.jaugeClerge.getValeur()<=0
-                || jaugeClerge.getValeur()>=50
-                || jaugePeuple.getValeur()<=0
-                || jaugePeuple.getValeur()>=50
-                || jaugeArmee.getValeur()<=0
-                || jaugeArmee.getValeur()>=50
-                || jaugeFinance.getValeur()<=0
-                || jaugeFinance.getValeur()>=50){
-            return true;
-        }else{
-            return false;
+        for (Jauge Element:ListeJauge) {
+            if(Element.getValeur()<=0 || Element.getValeur()>=50){
+                return true;
+            }
         }
+        return false;
     }
-
-
-
 }

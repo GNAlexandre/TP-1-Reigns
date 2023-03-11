@@ -133,9 +133,9 @@ public class MethodsQuestion{
         }
         // applique les malus
         if(reponse.equals("G")){
-            question.appliqueEffetsGauche(Reigns.personnage);
+            question.appliqueEffetsGauche();
         }else{
-            question.appliqueEffetsDroite(Reigns.personnage);
+            question.appliqueEffetsDroite();
         }
     }
 }

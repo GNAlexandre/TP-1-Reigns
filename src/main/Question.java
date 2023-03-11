@@ -1,7 +1,9 @@
 package main;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 
 /**
  * La classe Question représente une question avec ses effets sur les jauges d'un personnage
@@ -91,52 +93,29 @@ public class Question {
     /**
      * Applique les effets associés au choix gauche sur un personnage donné.
      *
-     * @param personnage le personnage sur lequel les effets doivent être appliqués
      */
-    public void appliqueEffetsGauche(Personnage personnage){
-        this.appliqueEffets(effetJaugeGauche, personnage);
+    public void appliqueEffetsGauche(){
+        this.appliqueEffets(effetJaugeGauche);
     }
 
     /**
      * Applique les effets associés au choix droit sur un personnage donné.
      *
-     * @param personnage le personnage sur lequel les effets doivent être appliqués
      */
-    public void appliqueEffetsDroite(Personnage personnage){
-        this.appliqueEffets(effetJaugeDroite, personnage);
+    public void appliqueEffetsDroite(){
+        this.appliqueEffets(effetJaugeDroite);
     }
+
+    public static HashMap<TypeJauge, Consumer<Integer>> effetMap = new HashMap<>();
 
     /**
      * Applique les effets d'une jauge sur un personnage donné.
      *
-     * @param effets les effets de jauge à appliquer
-     * @param personnage le personnage sur lequel les effets doivent être appliqués
+     * @param effets     les effets de jauge à appliquer
      */
-    private void appliqueEffets(Map<TypeJauge,Integer> effets,
-                                Personnage personnage){
-        for(Map.Entry<TypeJauge,Integer> effet : effets.entrySet()){
-            switch(effet.getKey()){
-                case ARMEE:
-                    MethodsPersonnage.getJaugeArmee().setValeur(
-                            MethodsPersonnage.getJaugeArmee().getValeur()
-                                    +effet.getValue());
-                    break;
-                case CLERGE:
-                    MethodsPersonnage.getJaugeClerge().setValeur(
-                            MethodsPersonnage.getJaugeClerge().getValeur()
-                                    +effet.getValue());
-                    break;
-                case FINANCE:
-                    MethodsPersonnage.getJaugeFinance().setValeur(
-                            MethodsPersonnage.getJaugeFinance().getValeur()
-                                    +effet.getValue());
-                    break;
-                case PEUPLE:
-                    MethodsPersonnage.getJaugePeuple().setValeur(
-                            MethodsPersonnage.getJaugePeuple().getValeur()
-                                    +effet.getValue());
-                    break;
-            }
+    private void appliqueEffets(Map<TypeJauge,Integer> effets){
+        for(TypeJauge typeJauge : effets.keySet()){
+            MethodsPersonnage.getJauge(typeJauge).setValeur(MethodsPersonnage.getJauge(typeJauge).getValeur() + effets.get(typeJauge));
         }
     }
 

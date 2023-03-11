@@ -11,9 +11,6 @@ public class Reigns {
      * le personnage joué
      */
     public static Personnage personnage;
-    private static int nbTours;
-
-
 
 
     /**
@@ -25,10 +22,10 @@ public class Reigns {
      */
     public static void main(String[] args){
         MethodsInitialisationGame.initGame();
-        nbTours = MethodsInitialisationGame.Game();
+        int nbTours = MethodsInitialisationGame.Game();
 
         // fin du jeu
-        System.out.println(MethodsPersonnage.getNom() + " a perdu ! Son règne a duré " +nbTours + " tours");
+        System.out.println(MethodsPersonnage.getNom() + " a perdu ! Son règne a duré " + nbTours + " tours");
 
 
     }

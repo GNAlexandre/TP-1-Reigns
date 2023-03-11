@@ -21,18 +21,13 @@ public class MethodsJauge extends Personnage{
      */
 
     public static void afficheJauge(Jauge jauge) {
-        String resultat = "[";
         // valeur : ####
-        for(int i=0;i<jauge.getValeur();i++){
-            resultat += "#";
-        }
-        // on complète avec ____
-        for(int i=0;i<50-(jauge.getValeur()>0?jauge.getValeur():0);i++){
-            resultat += "_";
-        }
-        resultat += "] ";
-        // affichage du nom
-        resultat += jauge.getNom();
+        String resultat = "[" + "#".repeat(Math.max(0, jauge.getValeur())) +
+                // on complète avec ____
+                "_".repeat(Math.max(0, 50 - (Math.max(jauge.getValeur(), 0)))) +
+                "] " +
+                // affichage du nom
+                jauge.getNom();
         System.out.println(resultat);
     }
 
@@ -57,18 +52,14 @@ public class MethodsJauge extends Personnage{
      * @return true si le jeu est fini, false sinon
      */
     public static boolean finDuJeu(){
-        if(Personnage.jaugeClerge.getValeur()<=0
-                || jaugeClerge.getValeur()>=50
-                || jaugePeuple.getValeur()<=0
-                || jaugePeuple.getValeur()>=50
-                || jaugeArmee.getValeur()<=0
-                || jaugeArmee.getValeur()>=50
-                || jaugeFinance.getValeur()<=0
-                || jaugeFinance.getValeur()>=50){
-            return true;
-        }else{
-            return false;
-        }
+        return Personnage.jaugeClerge.getValeur() <= 0
+                || jaugeClerge.getValeur() >= 50
+                || jaugePeuple.getValeur() <= 0
+                || jaugePeuple.getValeur() >= 50
+                || jaugeArmee.getValeur() <= 0
+                || jaugeArmee.getValeur() >= 50
+                || jaugeFinance.getValeur() <= 0
+                || jaugeFinance.getValeur() >= 50;
     }
 
 

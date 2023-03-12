@@ -1,7 +1,9 @@
 package main;
 
+import Jauges.TypeJauge;
+
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * La classe Question représente une question avec ses effets sur les jauges d'un personnage
@@ -29,11 +31,8 @@ public class Question {
     /**
      * les effets sur les jauges pour la réponse de gauche
      */
-    protected Map<TypeJauge, Integer> effetJaugeGauche;
-    /**
-     * les effets sur les jauges pour la réponse de droite
-     */
-    protected Map<TypeJauge, Integer> effetJaugeDroite;
+    protected Map<TypeJauge, Integer> effects;
+
 
     /**
      * Construit une nouvelle question avec les informations données
@@ -51,8 +50,7 @@ public class Question {
         this.question = question;
         this.effetGauche = effetGauche;
         this.effetDroite = effetDroite;
-        this.effetJaugeDroite = new TreeMap<>();
-        this.effetJaugeGauche = new TreeMap<>();
+        this.effects = new HashMap<>();
     }
 
     /**
@@ -65,8 +63,9 @@ public class Question {
                 + ",D: "+effetDroite
                 + "]";
         System.out.println(result);
-        System.out.println("Effet G:"+afficheEffets(effetJaugeGauche));
-        System.out.println("Effet D:"+afficheEffets(effetJaugeDroite));
+        System.out.println("Effets appliqué:"+ afficheEffets(effects));
+//      System.out.println("Effet G:"+afficheEffets(effetJaugeGauche));
+//      System.out.println("Effet D:"+afficheEffets(effetJaugeDroite));
         System.out.flush();
     }
 
@@ -88,79 +87,24 @@ public class Question {
         return result.toString();
     }
 
-    /**
-     * Applique les effets associés au choix gauche sur un personnage donné.
-     *
-     * @param personnage le personnage sur lequel les effets doivent être appliqués
-     */
-    public void appliqueEffetsGauche(Personnage personnage){
-        this.appliqueEffets(effetJaugeGauche, personnage);
-    }
-
-    /**
-     * Applique les effets associés au choix droit sur un personnage donné.
-     *
-     * @param personnage le personnage sur lequel les effets doivent être appliqués
-     */
-    public void appliqueEffetsDroite(Personnage personnage){
-        this.appliqueEffets(effetJaugeDroite, personnage);
-    }
 
     /**
      * Applique les effets d'une jauge sur un personnage donné.
-     *
-     * @param effets les effets de jauge à appliquer
-     * @param personnage le personnage sur lequel les effets doivent être appliqués
      */
-    private void appliqueEffets(Map<TypeJauge,Integer> effets,
-                                Personnage personnage){
-        for(Map.Entry<TypeJauge,Integer> effet : effets.entrySet()){
-            switch(effet.getKey()){
-                case ARMEE:
-                    MethodsPersonnage.getJaugeArmee().setValeur(
-                            MethodsPersonnage.getJaugeArmee().getValeur()
-                                    +effet.getValue());
-                    break;
-                case CLERGE:
-                    MethodsPersonnage.getJaugeClerge().setValeur(
-                            MethodsPersonnage.getJaugeClerge().getValeur()
-                                    +effet.getValue());
-                    break;
-                case FINANCE:
-                    MethodsPersonnage.getJaugeFinance().setValeur(
-                            MethodsPersonnage.getJaugeFinance().getValeur()
-                                    +effet.getValue());
-                    break;
-                case PEUPLE:
-                    MethodsPersonnage.getJaugePeuple().setValeur(
-                            MethodsPersonnage.getJaugePeuple().getValeur()
-                                    +effet.getValue());
-                    break;
+    protected void appliqueEffets(Personnage personnage){
+        for(Map.Entry<TypeJauge, Integer> effect : effects.entrySet()){
+            for(Map.Entry<TypeJauge, Integer> gauge : personnage.jauges.entrySet()){
+                if(effect.getKey() == gauge.getKey()){
+                    gauge.setValue(gauge.getValue() + effect.getValue());
+                }
             }
         }
     }
 
-    /**
-     * Ajoute un effet à la jauge associée au choix gauche.
-     *
-     * @param jauge la jauge à laquelle l'effet doit être ajouté
-     * @param valeur la valeur de l'effet à ajouter
-     */
-    public void ajouteEffetGauche(TypeJauge jauge,
-                                  int valeur){
-        effetJaugeGauche.put(jauge,valeur);
+    public void addEffect(TypeJauge gauge, int value){
+        effects.put(gauge, value);
     }
 
-    /**
-     * Ajoute un effet à la jauge associée au choix droit.
-     *
-     * @param jauge la jauge à laquelle l'effet doit être ajouté
-     * @param valeur la valeur de l'effet à ajouter
-     */
-    public void ajouteEffetDroite(TypeJauge jauge,
-                                  int valeur){
-        effetJaugeDroite.put(jauge,valeur);
-    }
 
     /**
      * Retourne le nom du personnage associé à la question.

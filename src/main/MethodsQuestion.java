@@ -123,19 +123,20 @@ public class MethodsQuestion{
      */
     public static void reponseQuestion(Question question){
         question.afficheQuestion();
-        // récupère la réponse
-        Scanner scanner = new Scanner(System.in);
-        String reponse = "";
-        while(!reponse.equals("G") && !reponse.equals("D")){
-            System.out.println("Entrez la réponse (G ou D)");
-            System.out.flush();
-            reponse = scanner.nextLine();
-        }
-        // applique les malus
-        if(reponse.equals("G")){
-            question.appliqueEffetsGauche();
-        }else{
-            question.appliqueEffetsDroite();
+        try (// récupère la réponse
+        Scanner scanner = new Scanner(System.in)) {
+            String reponse = "";
+            while(!reponse.equals("G") && !reponse.equals("D")){
+                System.out.println("Entrez la réponse (G ou D)");
+                System.out.flush();
+                reponse = scanner.nextLine();
+            }
+            // applique les malus
+            if(reponse.equals("G")){
+                question.appliqueEffetsGauche();
+            }else{
+                question.appliqueEffetsDroite();
+            }
         }
     }
 }

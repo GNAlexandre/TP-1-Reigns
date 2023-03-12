@@ -1,10 +1,10 @@
-package Effects;
+package Effets;
 
-import main.TypeJauge;
+import Jauges.TypeJauge;
 
 // DIRECTION {Gauche ou Droite} ; TypeJauge {Clergé, Peuple, Armée, Finance} ; Values { 0 => 50 }
 
-public class effects {
+public class effets {
     protected Direction direction;
     protected TypeJauge typeJauge;
     protected int values;

@@ -1,5 +1,7 @@
 package main;
 
+import Jauges.TypeJauge;
+
 import java.util.HashMap;
 
 /**
@@ -17,24 +19,10 @@ public class Personnage {
      * Le genre du personnage
      */
     public static Genre genre;
-    /**
-     * La jauge de Clergé
-     */
-    public static Jauge jaugeClerge;
-    /**
-     * La jauge de Peuple
-     */
-    public static Jauge jaugePeuple;
-    /**
-     * La jauge d'Armée
-     */
-    public static Jauge jaugeArmee;
-    /**
-     * La jauge de Finances
-     */
-    public static Jauge jaugeFinance;
-    public static HashMap<TypeJauge, Integer> jauges = new HashMap<TypeJauge, Integer>();
+
+    public HashMap<TypeJauge, Integer> jauges;
     public void CreationJauge(){
+        this.jauges = new HashMap<>();
         jauges.put(TypeJauge.CLERGE, 15 + (int)(Math.random() * (35 - 15)));
         jauges.put(TypeJauge.PEUPLE, 15 + (int)(Math.random() * (35 - 15)));
         jauges.put(TypeJauge.ARMEE, 15 + (int)(Math.random() * (35 - 15)));
